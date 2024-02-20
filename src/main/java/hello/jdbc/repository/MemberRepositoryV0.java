@@ -61,6 +61,46 @@ public class MemberRepositoryV0 {
         }
     }
 
+    public void update(String memberId, int money) throws SQLException {
+        String sql = "update member set money = ? where member_id = ?";
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, money);
+            pstmt.setString(2, memberId);
+            int resultSize = pstmt.executeUpdate();     // executeUpdate 는 해당 SQL 에 영향을 받은 로우 수를 반환
+            log.info("resultSize = {}", resultSize);
+        } catch(SQLException e) {
+            log.error("db error", e);
+            throw e;
+        } finally {
+            close(con, pstmt, null);
+        }
+    }
+
+    public void delete(String memberId) throws SQLException {
+        String sql = "delete from member where member_id = ?";
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            con = getConnection();
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, memberId);
+            pstmt.executeUpdate();
+        } catch(SQLException e) {
+            log.error("db error", e);
+            throw e;
+        } finally {
+            close(con, pstmt, null);
+        }
+    }
+
     /**
      * 리소스 정리
      - 쿼리 실행후 리소스 정리는 항상 역순으로 수행(Connection 을 획득하고 Connection 을 통해 PreparedStatement 를 만들었기 때문)
