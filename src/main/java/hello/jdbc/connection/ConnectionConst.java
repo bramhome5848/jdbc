@@ -5,7 +5,7 @@ package hello.jdbc.connection;
  * 생성을 하지 못하도록 abstract 클래스로 구성
  */
 public abstract class ConnectionConst {
-    public static final String URL = "jdbc:h2:tcp://localhost/~/desktop/db파일/jdbc";
+    public static final String URL = "jdbc:h2:tcp://localhost/~/desktop/db/jdbc";
     public static final String USERNAME = "sa";
     public static final String PASSWORD = "";
 }
