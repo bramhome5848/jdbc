@@ -76,7 +76,11 @@ class UncheckedAppTest {
 
         /**
          * 예외 전환 -> SQLException 발생시 RuntimeSQLException 으로 전환하여 예외를 던짐
-         * 참고 : 기존 예외를 포함해 주어야 예외 출력시 스택 트레이스에서 기존 예외도 함께 확인 가능
+         * 참고
+         - 기존 예외를 포함해 주어야 예외 출력시 스택 트레이스에서 기존 예외도 함께 확인 가능
+         - 기존 예외를 포함하지 않아 로그를 통해 어떠한 문제가 발생했는지 확인하지 못하는 경우가 있음
+         ex) SQLException 누락 -> RuntimeSQLException 부터 확인 가능 -> 실제 DB 연동시 DB 에서 발생한 예외를 확인할 수 없는 심각한 문제 발생
+         - 예외를 전환할 경우 꼭! 기존 예외를 포함할 것!!
          */
         public void call() {
             try {
